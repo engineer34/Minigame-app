@@ -1,9 +1,6 @@
-//
+
 //  TTTApp.swift
-//  TTT
-//
-//  Created by Feliciano Medina on 2/15/25.
-//
+
 
 import SwiftUI
 
@@ -11,18 +8,25 @@ struct MainMenuView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("Mini Game Hub")
+                Text("Mini Games")
                     .font(.largeTitle)
                     .bold()
                     .padding()
                 
                 List {
+                    // My tictactoe view navigation link
                     NavigationLink(destination: TicTacToeView()) {
                         Text("Play Tic-Tac-Toe")
                     }
+                    // my card game nav
+                    
+                    NavigationLink(destination: HighLowCardGameView()){
+                        Text("Play High-Low Card")
+                    }
+                    
                     // Add more mini-games here
-                    NavigationLink(destination: Text("Coming Soon...")) {
-                        Text("Other Mini-Game")
+                    NavigationLink(destination: Text("Will be coming soon....")) {
+                        Text("Other Mini-Games")
                     }
                 }
             }
@@ -31,9 +35,11 @@ struct MainMenuView: View {
 }
 @main
 struct TTTApp: App {
+    let persistenceController = PersistenceController.shared
     var body: some Scene {
-        WindowGroup {
-            MainMenuView()
+            WindowGroup {
+                MainMenuView()
+                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            }
         }
     }
-}
